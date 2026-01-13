@@ -245,12 +245,12 @@ class FileDialog #if android implements JNISafety #end
 				return true;
 
 			case OPEN_DIRECTORY:
-				// JNI.callMember(JNI.createMemberMethod('org/haxe/lime/FileDialog', 'openDocumentTree', '(Ljava/lang/String;)V'), JNI_FILE_DIALOG, [null]);
+				JNI.callMember(JNI.createMemberMethod('org/haxe/lime/FileDialog', 'openDocumentTree', '(Ljava/lang/String;)V'), JNI_FILE_DIALOG, [null]);
 				onCancel.dispatch();
 				return false;
 
 			case SAVE:
-				// save(null, filter, defaultPath, title, 'application/octet-stream');
+				save(null, filter, defaultPath, title, 'application/octet-stream');
 				onCancel.dispatch();
 				return false;
 		}
@@ -512,16 +512,16 @@ class FileDialog #if android implements JNISafety #end
 							trace('Failed to dispatch onSave: $e');
 					}
 				case DOCUMENT_TREE_REQUEST_CODE:
-					trace("Directory select doesn't work yet.");
-					onCancel.dispatch();
-					// try
-					// {
-					// 	onSelect.dispatch(uri);
-					// }
-					// catch (e:Dynamic)
-					// {
-					// 	trace('Failed to dispatch onSelect: $e');
-					// }
+					//trace("Directory select doesn't work yet.");
+					//onCancel.dispatch();
+					try
+					{
+						onSelect.dispatch(path);
+					}
+					catch (e:Dynamic)
+					{
+						trace('Failed to dispatch onSelect: $e');
+					}
 			}
 		}
 		else
