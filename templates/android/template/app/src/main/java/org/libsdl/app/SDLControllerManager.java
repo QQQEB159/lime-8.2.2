@@ -96,16 +96,16 @@ public class SDLControllerManager
     public static boolean isDeviceSDLJoystick(int deviceId) {
         InputDevice device = InputDevice.getDevice(deviceId);
 
-        if ((device == null) || (deviceId < 0)) {
+        if (device == null || device.isVirtual()) {
             return false;
         }
 
         int sources = device.getSources();
 
         return ((sources & InputDevice.SOURCE_CLASS_JOYSTICK) != 0 ||
-                ((sources & InputDevice.SOURCE_DPAD) == InputDevice.SOURCE_DPAD) ||
-                ((sources & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD)
-        );
+                (sources & InputDevice.SOURCE_DPAD) == InputDevice.SOURCE_DPAD ||
+                (sources & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD) &&
+            (sources & InputDevice.SOURCE_KEYBOARD) == 0;
     }
 
 }
