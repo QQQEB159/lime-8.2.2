@@ -8,12 +8,12 @@ env:
 
 jobs:
   android:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Haxe
-        uses: krdlab/setup-haxe@master
+        uses: ShadowEngineTeam/setup-haxe@main
         with:
           haxe-version: ${{ env.HAXE_VERSION }}
       - name: Set HAXEPATH
